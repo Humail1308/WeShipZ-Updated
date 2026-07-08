@@ -1,23 +1,26 @@
 import { motion } from 'framer-motion';
 import { AnimatedHeading } from '../ui/AnimatedHeading';
+import ecommerceImg from '../assets/ecommerce.png';
+import resumeImg from '../assets/resume.png';
+import shortsImg from '../assets/shorts.png';
 
 const projects = [
   {
     name: "E-Commerce Listing Generator",
     description: "AI workflow that auto-generates product listings, titles & descriptions at scale.",
-    image: "/src/assets/workflows/ecommerce.jpeg",
+    image: ecommerceImg,
     tag: "E-Commerce · Automation",
   },
   {
     name: "Resume Rewriter",
     description: "Automated resume tailoring system that rewrites CVs based on job descriptions.",
-    image: "/src/assets/workflows/resume.png",
+    image: resumeImg,
     tag: "HR · AI Writing",
   },
   {
     name: "Automated Shorts Creator",
     description: "End-to-end pipeline that turns long-form content into short-form videos automatically.",
-    image: "/src/assets/workflows/shorts.png",
+    image: shortsImg,
     tag: "Content · Video AI",
   },
 ];
