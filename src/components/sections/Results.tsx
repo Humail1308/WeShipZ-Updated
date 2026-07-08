@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { AnimatedHeading } from '../ui/AnimatedHeading';
-import ecommerceImg from '../assets/ecommerce.png';
-import resumeImg from '../assets/resume.png';
-import shortsImg from '../assets/shorts.png';
+import ecommerceImg from '../../assets/workflows/ecommerce.jpeg';
+import resumeImg from '../../assets/workflows/resume.png';
+import shortsImg from '../../assets/workflows/shorts.png';
 
 const projects = [
   {
