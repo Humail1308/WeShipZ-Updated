@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FloatingObjects } from './FloatingObjects';
-import logoWhite from "../../assets/logo-white.png";
 
 export function Hero({ onBookCall }: { onBookCall: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);

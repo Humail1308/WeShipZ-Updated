@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { AnimatedHeading } from '../ui/AnimatedHeading';
 
 function FaqItem({ question, answer }: { question: string, answer: string }) {

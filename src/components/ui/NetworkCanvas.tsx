@@ -20,7 +20,7 @@ const activityPool = [
 // ─── Typing number hook ───────────────────────────────────────────────────────
 function useFlickerNumber(value: number, decimals = 0) {
   const [display, setDisplay] = useState(value);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     // Animate through random values toward target
