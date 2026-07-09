@@ -33,11 +33,13 @@ export function Results() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setActiveProject(null);
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveProject(null);
+      }
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
   return (
@@ -76,7 +78,10 @@ export function Results() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              onClick={() => setActiveProject(idx)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveProject(idx);
+              }}
               className="group bg-background-elevated border border-white/10 rounded-xl overflow-hidden cursor-pointer"
               style={{ transition: 'all 0.4s ease-out', transform: 'translateY(0) scale(1)', boxShadow: '0 0 0 rgba(0,0,0,0)' }}
               onMouseEnter={(e) => {
@@ -136,7 +141,7 @@ export function Results() {
         </div>
       </section>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {activeProject !== null && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -144,30 +149,30 @@ export function Results() {
             exit={{ opacity: 0 }}
             onClick={() => setActiveProject(null)}
             className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
-            style={{ background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)' }}
+            style={{ background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)', cursor: 'auto' }}
           >
             <motion.div
+              key={activeProject}
               onClick={(e) => e.stopPropagation()}
               initial={{ rotateY: 90, opacity: 0, scale: 0.8 }}
-              animate={{ rotateY: 0, opacity: 1, scale: 1, y: [-8, 8, -8] }}
-              exit={{ rotateY: 90, opacity: 0, scale: 0.8, y: 0 }}
+              animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+              exit={{ rotateY: 90, opacity: 0, scale: 0.8 }}
               transition={{ 
                 rotateY: { type: 'spring', stiffness: 100, damping: 20 },
                 opacity: { duration: 0.3 },
-                scale: { type: 'spring', stiffness: 100, damping: 20 },
-                y: { duration: 3, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }
+                scale: { type: 'spring', stiffness: 100, damping: 20 }
               }}
-              className="bg-background-elevated border border-white/10 rounded-2xl overflow-hidden w-full max-w-[800px] max-h-[90vh] overflow-y-auto flex flex-col scrollbar-hide"
-              style={{ transformPerspective: 1000 }}
+              className="bg-background-elevated border border-white/10 overflow-hidden w-full overflow-y-auto flex flex-col scrollbar-hide"
+              style={{ transformPerspective: 1000, maxWidth: '580px', maxHeight: '75vh', borderRadius: '20px', cursor: 'auto' }}
             >
-              <div className="w-full h-[250px] sm:h-[400px] relative shrink-0">
+              <div className="w-full h-[240px] relative shrink-0">
                 <img 
                   src={projects[activeProject].image} 
                   alt={projects[activeProject].name}
                   className="absolute inset-0 w-full h-full object-cover object-top"
                 />
               </div>
-              <div className="p-8 md:p-12 flex flex-col gap-6">
+              <div className="flex flex-col gap-6" style={{ padding: '28px' }}>
                 <div>
                   <span className="text-electric-blue font-label-mono text-xs uppercase tracking-widest mb-3 block">
                     {projects[activeProject].tag}
