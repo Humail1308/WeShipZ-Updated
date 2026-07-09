@@ -5,7 +5,12 @@ export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
+  const isTouchDevice = () => {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  };
+
   useEffect(() => {
+    if (isTouchDevice()) return;
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -35,7 +40,7 @@ export function CustomCursor() {
     };
   }, []);
 
-  return (
+  return isTouchDevice() ? null : (
     <motion.div
       className="fixed top-0 left-0 rounded-full pointer-events-none z-[99999] flex items-center justify-center"
       style={{

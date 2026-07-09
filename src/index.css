@@ -305,3 +305,7 @@
 .animated-border-btn:hover .animated-border-btn-inner {
   background-color: rgba(30, 33, 48, 0.9);
 }
+
+@media (hover: none) {
+  * { cursor: auto !important; }
+}

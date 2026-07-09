@@ -44,7 +44,6 @@ export function Home() {
             >
               Book a Free Call
             </button>
-            <p className="mt-8 font-label-mono text-label-mono text-on-surface-variant/40">NO STRINGS ATTACHED. JUST COLD, HARD STRATEGY.</p>
           </div>
         </section>
       </main>
