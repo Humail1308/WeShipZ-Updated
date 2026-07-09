@@ -207,7 +207,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
 
       {/* Mobile Stacked Layout */}
       <div className="flex flex-col gap-6 w-full md:hidden mt-8">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <div key={card.id} className="w-full bg-background-elevated border border-white/5 rounded-xl flex flex-col relative" style={{ padding: "40px" }}>
             {card.isPopular && (
               <div className="absolute top-0 right-8 -translate-y-1/2 bg-electric-blue text-white font-label-mono text-[10px] px-4 py-1.5 rounded-full tracking-widest z-10">
