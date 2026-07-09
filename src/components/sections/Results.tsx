@@ -149,7 +149,7 @@ export function Results() {
             exit={{ opacity: 0 }}
             onClick={() => setActiveProject(null)}
             className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
-            style={{ background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)', cursor: 'auto' }}
+            style={{ background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)', cursor: 'none' }}
           >
             <motion.div
               key={activeProject}
@@ -163,7 +163,7 @@ export function Results() {
                 scale: { type: 'spring', stiffness: 100, damping: 20 }
               }}
               className="bg-background-elevated border border-white/10 overflow-hidden w-full overflow-y-auto flex flex-col scrollbar-hide"
-              style={{ transformPerspective: 1000, maxWidth: '580px', maxHeight: '75vh', borderRadius: '20px', cursor: 'auto' }}
+              style={{ transformPerspective: 1000, maxWidth: '580px', maxHeight: '75vh', borderRadius: '20px', cursor: 'none' }}
             >
               <div className="w-full h-[240px] relative shrink-0">
                 <img 
@@ -191,12 +191,14 @@ export function Results() {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="px-8 py-4 bg-electric-blue text-white rounded font-medium hover:brightness-110 transition-all text-center"
+                    style={{ cursor: 'none' }}
                   >
                     Preview Case Study
                   </a>
                   <button 
                     onClick={() => setActiveProject(null)}
                     className="px-8 py-4 border border-white/20 text-white rounded font-medium hover:bg-white/5 transition-all"
+                    style={{ cursor: 'none' }}
                   >
                     Close
                   </button>

@@ -37,7 +37,7 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center"
+      className="fixed top-0 left-0 rounded-full pointer-events-none z-[99999] flex items-center justify-center"
       style={{
         boxShadow: isHovering ? '0 0 30px 10px rgba(37,99,235,0.4)' : '0 0 20px 8px rgba(37,99,235,0.6)',
         border: isHovering ? '2px solid #2563eb' : '2px solid rgba(255,255,255,0.8)',
