@@ -137,7 +137,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
 
       <div className="text-center w-full flex justify-center">
         <div style={{ color: 'gray', fontSize: '0.72rem', opacity: 0.5, marginBottom: '16px' }}>
-          {currency === 'PKR' ? '🇵🇰 Showing PKR prices' : 'Showing USD prices'}
+          {currency === 'PKR' ? 'Showing PKR prices' : 'Showing USD prices'}
         </div>
       </div>
 
