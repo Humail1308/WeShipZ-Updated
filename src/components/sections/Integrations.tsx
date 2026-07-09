@@ -134,16 +134,13 @@ export default function Integrations() {
       }} />
 
       {/* Two column */}
-      <div style={{
-        display: "flex", alignItems: "center", justifyContent: "center",
-        width: "100%", maxWidth: 1300, gap: "80px", flexWrap: "wrap",
-      }}>
+      <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-[1300px] gap-12 lg:gap-20">
 
         {/* LEFT — Orbit */}
         <div ref={orbitRef} style={{
           position: "relative",
-          width:  "clamp(500px, 52vw, 780px)",
-          height: "clamp(500px, 52vw, 780px)",
+          width:  "clamp(280px, 80vw, 780px)",
+          height: "clamp(280px, 80vw, 780px)",
           flexShrink: 0,
         }}>
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}>
@@ -157,7 +154,7 @@ export default function Integrations() {
         </div>
 
         {/* RIGHT — Text */}
-        <div style={{ flex: 1, minWidth: 300, maxWidth: 520 }}>
+        <div className="text-center lg:text-left flex-1 min-w-[300px] max-w-[520px] flex flex-col items-center lg:items-start">
 
           {/* Heading — "Supercharged." in blue */}
           <motion.h2
@@ -198,7 +195,7 @@ export default function Integrations() {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.22 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: 44 }}
+            className="flex flex-wrap justify-center lg:justify-start gap-2 mb-10"
           >
             {tools.map((t) => (
               <span key={t.name} style={{

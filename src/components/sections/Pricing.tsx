@@ -141,7 +141,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
         </div>
       </div>
 
-      <div className="relative mx-auto w-full max-w-5xl" style={{ perspective: "1000px", transformStyle: "preserve-3d" }}>
+      <div className="relative mx-auto w-full max-w-5xl hidden md:block" style={{ perspective: "1000px", transformStyle: "preserve-3d" }}>
         
         {/* Navigation Arrows beside cards */}
         <button 
@@ -205,8 +205,43 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
         </div>
       </div>
 
+      {/* Mobile Stacked Layout */}
+      <div className="flex flex-col gap-6 w-full md:hidden mt-8">
+        {cards.map((card, index) => (
+          <div key={card.id} className="w-full bg-background-elevated border border-white/5 rounded-xl flex flex-col relative" style={{ padding: "40px" }}>
+            {card.isPopular && (
+              <div className="absolute top-0 right-8 -translate-y-1/2 bg-electric-blue text-white font-label-mono text-[10px] px-4 py-1.5 rounded-full tracking-widest z-10">
+                MOST POPULAR
+              </div>
+            )}
+            <h3 className="font-headline-md text-headline-md mb-2 text-left">{card.title}</h3>
+            <p className="text-on-surface-variant mb-8 min-h-[48px] text-left">{card.desc}</p>
+            <div className="text-4xl font-headline-md mb-8 text-left">
+              {prices[currency][card.id] || card.price}
+              <span className="text-lg font-body-md text-on-surface-variant">
+                {card.id === 'scale' ? prices[currency].scaleSub : '/setup'}
+              </span>
+            </div>
+            <ul className="space-y-4 mb-12 flex-grow text-left">
+              {card.features.map((feature, i) => (
+                <li key={i} className="flex items-center gap-3 text-on-surface-variant">
+                  <span className="material-symbols-outlined text-electric-blue text-sm">check_circle</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <button 
+              onClick={(e) => { e.stopPropagation(); onBookCall(); }} 
+              className={`w-full py-4 rounded transition-all ${card.btnClass}`}
+            >
+              {card.btnText}
+            </button>
+          </div>
+        ))}
+      </div>
+
       {/* Dot Indicators */}
-      <div className="flex items-center justify-center gap-3 mt-8">
+      <div className="hidden md:flex items-center justify-center gap-3 mt-8">
         {cards.map((_, index) => (
           <button
             key={index}

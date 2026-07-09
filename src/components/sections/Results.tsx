@@ -162,8 +162,8 @@ export function Results() {
                 opacity: { duration: 0.3 },
                 scale: { type: 'spring', stiffness: 100, damping: 20 }
               }}
-              className="bg-background-elevated border border-white/10 overflow-hidden w-full overflow-y-auto flex flex-col scrollbar-hide"
-              style={{ transformPerspective: 1000, maxWidth: '580px', maxHeight: '75vh', borderRadius: '20px', cursor: 'none' }}
+              className="bg-background-elevated border border-white/10 overflow-hidden w-full overflow-y-auto flex flex-col scrollbar-hide max-w-[95vw] sm:max-w-[580px]"
+              style={{ transformPerspective: 1000, maxHeight: '75vh', borderRadius: '20px', cursor: 'none' }}
             >
               <div className="w-full h-[240px] relative shrink-0">
                 <img 

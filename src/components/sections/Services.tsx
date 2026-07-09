@@ -101,9 +101,10 @@ export function Services() {
             position: 'absolute', left: -60, top: '50%', transform: 'translateY(-50%)',
             width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50,
+            alignItems: 'center', justifyContent: 'center', zIndex: 50,
             cursor: 'pointer', transition: 'all 0.3s ease'
           }}
+          className="hidden md:flex"
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'rgba(37,99,235,0.2)';
             e.currentTarget.style.borderColor = 'rgba(37,99,235,0.4)';
@@ -123,9 +124,10 @@ export function Services() {
             position: 'absolute', right: -60, top: '50%', transform: 'translateY(-50%)',
             width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50,
+            alignItems: 'center', justifyContent: 'center', zIndex: 50,
             cursor: 'pointer', transition: 'all 0.3s ease'
           }}
+          className="hidden md:flex"
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'rgba(37,99,235,0.2)';
             e.currentTarget.style.borderColor = 'rgba(37,99,235,0.4)';
@@ -204,17 +206,25 @@ export function Services() {
         </div>
       </div>
       
-      <div className="flex justify-center gap-2 mt-8">
-        {services.map((_, idx) => (
-          <button 
-            key={idx} 
-            onClick={() => {
-              setDirection(idx > currentIndex ? 1 : -1);
-              setCurrentIndex(idx);
-            }}
-            className={`w-2 h-2 rounded-full transition-colors ${idx === currentIndex ? 'bg-electric-blue w-6' : 'bg-white/20'}`} 
-          />
-        ))}
+      <div className="flex justify-center items-center gap-6 md:gap-2 mt-8">
+        <button onClick={handlePrev} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex md:hidden items-center justify-center text-white">
+          <span className="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div className="flex gap-2">
+          {services.map((_, idx) => (
+            <button 
+              key={idx} 
+              onClick={() => {
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
+              className={`w-2 h-2 rounded-full transition-colors ${idx === currentIndex ? 'bg-electric-blue w-6' : 'bg-white/20'}`} 
+            />
+          ))}
+        </div>
+        <button onClick={handleNext} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex md:hidden items-center justify-center text-white">
+          <span className="material-symbols-outlined">arrow_forward</span>
+        </button>
       </div>
     </section>
   );

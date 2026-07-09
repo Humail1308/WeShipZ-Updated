@@ -13,13 +13,13 @@ export function Footer() {
           WESHIPZ
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-end px-gutter py-section-padding gap-8 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end px-gutter py-section-padding gap-12 md:gap-8 relative z-10 text-center md:text-left">
           {/* Left */}
-          <div className="flex flex-col gap-6 w-full md:w-auto">
-            <div className="font-label-mono text-label-mono text-on-surface mb-8">
+          <div className="flex flex-col gap-6 w-full md:w-auto items-center md:items-start">
+            <div className="font-label-mono text-label-mono text-on-surface mb-4 md:mb-8">
               © 2026 WESHIPZ. ALL RIGHTS RESERVED.
             </div>
-            <div className="flex gap-8">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-8">
               <button
                 onClick={() => setModal('privacy')}
                 className="font-label-mono text-label-mono uppercase text-on-surface-variant hover:text-electric-blue transition-colors cursor-pointer bg-transparent border-none p-0"
@@ -36,8 +36,8 @@ export function Footer() {
           </div>
 
           {/* Right */}
-          <div className="flex flex-col gap-6 w-full md:w-auto md:items-end">
-            <div className="flex gap-8">
+          <div className="flex flex-col gap-6 w-full md:w-auto items-center md:items-end">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
               <a
                 href="https://www.linkedin.com/company/weshipz"
                 target="_blank"
@@ -63,7 +63,7 @@ export function Footer() {
                 Instagram
               </a>
             </div>
-            <p className="font-body-md text-on-surface-variant text-right">
+            <p className="font-body-md text-on-surface-variant text-center md:text-right mt-4 md:mt-0">
               Engineering growth through intelligent automation.
             </p>
           </div>

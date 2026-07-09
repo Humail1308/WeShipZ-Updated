@@ -19,15 +19,15 @@ export function Reviews() {
         <AnimatedHeading text="What our partners say." className="font-headline-lg text-headline-lg-mobile md:text-headline-lg" />
       </motion.div>
       
-      <div className="max-w-4xl mx-auto bg-background-elevated border border-white/10 p-10 md:p-16 rounded-2xl relative">
-        <span className="material-symbols-outlined absolute top-8 left-8 text-6xl text-white/5 pointer-events-none">format_quote</span>
+      <div className="max-w-4xl mx-auto bg-background-elevated border border-white/10 p-6 md:p-16 rounded-2xl relative">
+        <span className="material-symbols-outlined absolute top-4 left-4 md:top-8 md:left-8 text-4xl md:text-6xl text-white/5 pointer-events-none">format_quote</span>
         <div className="relative z-10 flex flex-col items-center text-center">
           <div className="flex gap-1 mb-6 text-yellow-500">
             {[...Array(5)].map((_, i) => (
               <span key={i} className="material-symbols-outlined fill-current">star</span>
             ))}
           </div>
-          <p className="font-body-lg text-2xl leading-relaxed text-on-surface-variant mb-8 italic">
+          <p className="font-body-lg text-xl md:text-2xl leading-relaxed text-on-surface-variant mb-8 italic">
             "I recently hired them for my E-commerce Store. They automated the e-commerce listings process that would usually take 30 mins for one listing but now I have my listing ready in 2 minutes. Highly recommended for AI Automations Solutions."
           </p>
           <div>

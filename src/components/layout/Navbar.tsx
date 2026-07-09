@@ -77,10 +77,9 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
 
           {/* Links — desktop */}
           <div style={{
-            display:    "flex",
             alignItems: "center",
             gap:        "4px",
-          }} className="navbar-links">
+          }} className="hidden md:flex">
             {links.map((l) => (
               <a
                 key={l.href}
@@ -137,7 +136,6 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               style={{
-                display:      "none",
                 background:   "rgba(255,255,255,0.07)",
                 border:       "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "50%",
@@ -150,7 +148,7 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
                 gap:          4,
                 padding:      0,
               }}
-              className="hamburger-btn"
+              className="flex md:hidden"
             >
               {[0,1,2].map((i) => (
                 <span key={i} style={{
@@ -220,14 +218,6 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Responsive styles */}
-      <style>{`
-        @media (max-width: 640px) {
-          .navbar-links { display: none !important; }
-          .hamburger-btn { display: flex !important; }
-        }
-      `}</style>
     </>
   );
 }

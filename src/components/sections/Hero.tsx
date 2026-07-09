@@ -56,12 +56,12 @@ export function Hero({ onBookCall }: { onBookCall: () => void }) {
       <section className="sticky top-0 w-full h-screen bg-[#05050a] flex items-center justify-center overflow-hidden">
         
         {/* Floating 3D Objects in Background */}
-        <motion.div style={{ opacity: floatingOpacity }} className="absolute inset-0 pointer-events-none z-0">
+        <motion.div style={{ opacity: floatingOpacity }} className="absolute inset-0 pointer-events-none z-0 hidden md:block">
           <FloatingObjects />
         </motion.div>
 
         {/* Corner Elements */}
-        <div className="absolute top-6 right-6 md:top-8 md:right-8 font-label-mono text-[10px] md:text-xs text-white/20 tracking-widest z-10">
+        <div className="absolute top-6 right-6 md:top-8 md:right-8 font-label-mono text-[10px] md:text-xs text-white/20 tracking-widest z-10 hidden md:block">
           KHI / PAK
         </div>
         
@@ -87,7 +87,7 @@ export function Hero({ onBookCall }: { onBookCall: () => void }) {
               <motion.span
                 className="inline-block font-black text-white cursor-default select-none"
                 style={{ 
-                  fontSize: 'clamp(80px, 14vw, 200px)',
+                  fontSize: 'clamp(48px, 12vw, 200px)',
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
                   fontFamily: "'Clash Display', 'Space Grotesk', sans-serif"

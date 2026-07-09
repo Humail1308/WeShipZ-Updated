@@ -54,7 +54,7 @@ export function HowItWorks() {
         <div className="space-y-12 md:space-y-24 relative">
           
           {/* Animated Vertical Line Container */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 hidden md:block">
+          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2">
             {/* Faint blue track */}
             <div className="absolute inset-0 bg-[rgba(37,99,235,0.15)] w-full"></div>
             
@@ -91,14 +91,14 @@ export function HowItWorks() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: "-100px" }}
                 transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
-                className="relative grid md:grid-cols-2 gap-8 md:gap-12 items-center bg-background-elevated md:bg-transparent p-8 md:p-0 rounded-2xl border border-white/5 md:border-none"
+                className="relative grid md:grid-cols-2 gap-8 md:gap-12 items-center text-center md:text-left bg-background-elevated md:bg-transparent p-8 md:p-0 rounded-2xl border border-white/5 md:border-none z-10 md:z-auto"
               >
                 {isLeft ? (
                   <>
                     <div className="md:text-right">
-                      <span className="font-display-xl text-7xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
-                      <h3 className="font-headline-md text-3xl md:text-5xl mb-4 text-white">{step.title}</h3>
-                      <p className="font-body-lg text-on-surface-variant max-w-md md:ml-auto">{step.description}</p>
+                      <span className="font-display-xl text-5xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
+                      <h3 className="font-headline-md text-2xl md:text-5xl mb-4 text-white">{step.title}</h3>
+                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-auto md:mr-0">{step.description}</p>
                     </div>
                     <div className="hidden md:block"></div>
                   </>
@@ -106,9 +106,9 @@ export function HowItWorks() {
                   <>
                     <div className="hidden md:block"></div>
                     <div>
-                      <span className="font-display-xl text-7xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
-                      <h3 className="font-headline-md text-3xl md:text-5xl mb-4 text-white">{step.title}</h3>
-                      <p className="font-body-lg text-on-surface-variant max-w-md">{step.description}</p>
+                      <span className="font-display-xl text-5xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
+                      <h3 className="font-headline-md text-2xl md:text-5xl mb-4 text-white">{step.title}</h3>
+                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-0 md:mr-auto">{step.description}</p>
                     </div>
                   </>
                 )}
