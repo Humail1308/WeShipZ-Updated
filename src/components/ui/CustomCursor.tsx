@@ -37,11 +37,13 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-screen flex items-center justify-center"
+      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center"
       style={{
-        boxShadow: isHovering ? '0 0 30px 10px rgba(37, 99, 235, 0.4)' : '0 0 20px 8px rgba(37, 99, 235, 0.6)',
-        border: isHovering ? '1px solid rgba(37, 99, 235, 0.8)' : 'none',
-        backgroundColor: isHovering ? 'transparent' : '#2563eb'
+        boxShadow: isHovering ? '0 0 30px 10px rgba(37,99,235,0.4)' : '0 0 20px 8px rgba(37,99,235,0.6)',
+        border: isHovering ? '2px solid #2563eb' : '2px solid rgba(255,255,255,0.8)',
+        backgroundColor: isHovering ? 'transparent' : '#2563eb',
+        outline: isHovering ? '1px solid rgba(0,0,0,0.2)' : '1px solid rgba(0,0,0,0.3)',
+        mixBlendMode: 'normal'
       }}
       animate={{
         x: mousePosition.x - (isHovering ? 24 : 8),

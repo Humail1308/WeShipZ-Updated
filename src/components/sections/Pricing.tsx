@@ -4,8 +4,8 @@ import { AnimatedHeading } from '../ui/AnimatedHeading';
 
 const prices: Record<string, Record<string, string>> = {
   USD: {
-    starter: '$2,500',
-    growth: '$6,000',
+    starter: '$350',
+    growth: '$500',
     scale: 'Custom',
     scaleSub: ' Quote',
   },
@@ -58,7 +58,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
   const [activeIndex, setActiveIndex] = useState(1);
 
   useEffect(() => {
-    fetch('https://ipapi.co/json/')
+    fetch('https://ipwho.is/')
       .then(res => res.json())
       .then(data => {
         if (data.country_code === 'PK') {
