@@ -1,5 +1,5 @@
 *, *::before, *::after {
-  cursor: none !important;
+  cursor: none;
 }
 @import "tailwindcss";
 
