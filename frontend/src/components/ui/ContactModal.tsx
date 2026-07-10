@@ -82,7 +82,7 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
     setIsSubmitting(true);
     
     try {
-      const res = await fetch('http://localhost:3001/api/send-verification', {
+      const res = await fetch('https://weshipz-updated-production.up.railway.app/api/send-verification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, name })
@@ -102,7 +102,7 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
     setIsVerifying(true);
     
     try {
-      const res = await fetch('http://localhost:3001/api/verify-and-submit', {
+      const res = await fetch('https://weshipz-updated-production.up.railway.app/api/verify-and-submit', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
