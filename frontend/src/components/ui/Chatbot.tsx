@@ -1,6 +1,76 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const getResponse = (input: string) => {
+  const msg = input.toLowerCase();
+  
+  if(msg.includes('price') || msg.includes('cost') || 
+     msg.includes('rate') || msg.includes('how much') ||
+     msg.includes('charges') || msg.includes('fee')) {
+    return "Our packages start from $350 for Starter, $500 for Growth, and Custom Quote for Scale. Pakistan-based clients get special PKR pricing. Book a free audit to get an exact quote for your needs!";
+  }
+  
+  if(msg.includes('service') || msg.includes('what do you') || 
+     msg.includes('offer') || msg.includes('provide') ||
+     msg.includes('build') || msg.includes('make')) {
+    return "We offer: AI Automation & Workflows, Lead Capture Systems, AI Customer Support, Motion & Ad Creatives, Custom Internal Tools, and Data Engines. Which one interests you?";
+  }
+  
+  if(msg.includes('time') || msg.includes('long') || 
+     msg.includes('days') || msg.includes('weeks') ||
+     msg.includes('deliver') || msg.includes('fast')) {
+    return "Most automation systems are delivered in 2-4 weeks. Simple workflows can be ready in under a week. We move fast!";
+  }
+  
+  if(msg.includes('pakistan') || msg.includes('karachi') || 
+     msg.includes('pkr') || msg.includes('local')) {
+    return "Yes! We're based in Karachi, Pakistan 🇵🇰 We work with local and international clients. PKR pricing available for Pakistan-based businesses.";
+  }
+  
+  if(msg.includes('whatsapp') || msg.includes('contact') || 
+     msg.includes('reach') || msg.includes('talk') ||
+     msg.includes('call') || msg.includes('speak')) {
+    return "You can reach us on WhatsApp directly or book a free audit call through our website. We typically respond within a few hours!";
+  }
+  
+  if(msg.includes('portfolio') || msg.includes('example') || 
+     msg.includes('work') || msg.includes('sample') ||
+     msg.includes('previous') || msg.includes('done')) {
+    return "Check out our Portfolio section on this page! We've built an E-Commerce Listing Generator, Resume Rewriter, and Automated Shorts Creator. More projects coming soon!";
+  }
+  
+  if(msg.includes('automation') || msg.includes('automate') || 
+     msg.includes('workflow') || msg.includes('n8n') ||
+     msg.includes('make') || msg.includes('zapier')) {
+    return "We specialize in building custom AI automation workflows using n8n, Make, OpenAI, and more. Tell us what you want to automate and we'll engineer the perfect solution!";
+  }
+  
+  if(msg.includes('ai') || msg.includes('artificial') || 
+     msg.includes('intelligent') || msg.includes('chatbot') ||
+     msg.includes('bot')) {
+    return "We build custom AI systems — not just generic chatbots. Think intelligent lead capture, smart customer support, AI-powered content pipelines, and more. All custom-engineered for your business.";
+  }
+  
+  if(msg.includes('hello') || msg.includes('hi') || 
+     msg.includes('hey') || msg.includes('salam') ||
+     msg.includes('assalam')) {
+    return "Hey! 👋 Welcome to WeShipZ. I'm here to help you learn about our AI automation services. What would you like to know — our services, pricing, or how to get started?";
+  }
+  
+  if(msg.includes('start') || msg.includes('begin') || 
+     msg.includes('get started') || msg.includes('how to')) {
+    return "Getting started is simple! 1) Book a free audit call 2) We analyze your business 3) We build your custom system. Click 'Book a Free Audit' to begin!";
+  }
+  
+  if(msg.includes('refund') || msg.includes('guarantee') || 
+     msg.includes('money back') || msg.includes('cancel')) {
+    return "We work on a retainer basis with milestone-based delivery. All terms are agreed before work begins. We're committed to delivering results!";
+  }
+
+  // Default response
+  return "That's a great question! For detailed information, I'd recommend booking a free audit call where our team can give you a personalized answer. Click 'Book a Free Audit' below!";
+};
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(true);
   const [messages, setMessages] = useState([
@@ -23,10 +93,7 @@ export function Chatbot() {
     
     // Simulate bot reply
     setTimeout(() => {
-      let botReply = "That sounds interesting. Let's book a free audit to discuss further!";
-      if (userMsg.toLowerCase().includes('audit')) botReply = "Great! You can book an audit using the button on the top right.";
-      if (userMsg.toLowerCase().includes('price') || userMsg.toLowerCase().includes('cost')) botReply = "Our pricing starts at $2,500/setup. Check out our Pricing section for more details.";
-      
+      const botReply = getResponse(userMsg);
       setMessages(prev => [...prev, { role: 'bot', content: botReply }]);
     }, 1000);
   };
