@@ -61,7 +61,7 @@ export function CustomCursor() {
         filter: { duration: 0.15, ease: 'easeOut' }
       }}
     >
-      <svg width="24" height="24" viewBox="0 0 24 24">
+      <svg width="24" height="24" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
         <path 
           d="M4 2 L4 18 L8 14 L12 22 L14 21 L10 13 L16 13 Z"
           fill="white"

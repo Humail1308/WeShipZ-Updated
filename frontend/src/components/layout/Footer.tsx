@@ -112,7 +112,7 @@ export function Footer() {
                   position: 'absolute', top: 16, right: 20,
                   background: 'transparent', border: 'none',
                   color: 'rgba(255,255,255,0.4)', fontSize: '1.4rem',
-                  cursor: 'pointer', lineHeight: 1,
+                  cursor: 'none', lineHeight: 1,
                 }}
               >
                 ×

@@ -73,7 +73,7 @@ function OrbitIcon({ tool, angle, rx, ry, cx, cy }: IconProps) {
         display:         "flex",
         alignItems:      "center",
         justifyContent:  "center",
-        cursor:          "default",
+        cursor: 'none',
         willChange:      "transform",
       }}
     >
@@ -222,7 +222,7 @@ export default function Integrations() {
                 color: "#fff", fontWeight: 700, fontSize: "1.05rem",
                 borderRadius: "12px", textDecoration: "none",
                 letterSpacing: "0.02em",
-                boxShadow: "0 4px 24px rgba(37,99,235,0.35)", cursor: "pointer",
+                boxShadow: "0 4px 24px rgba(37,99,235,0.35)", cursor: 'none',
               }}
             >
               Book a Free Call

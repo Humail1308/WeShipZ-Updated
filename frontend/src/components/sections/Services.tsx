@@ -102,7 +102,7 @@ export function Services() {
             width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
             alignItems: 'center', justifyContent: 'center', zIndex: 50,
-            cursor: 'pointer', transition: 'all 0.3s ease'
+            cursor: 'none', transition: 'all 0.3s ease'
           }}
           className="hidden md:flex"
           onMouseEnter={(e) => {
@@ -125,7 +125,7 @@ export function Services() {
             width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
             alignItems: 'center', justifyContent: 'center', zIndex: 50,
-            cursor: 'pointer', transition: 'all 0.3s ease'
+            cursor: 'none', transition: 'all 0.3s ease'
           }}
           className="hidden md:flex"
           onMouseEnter={(e) => {

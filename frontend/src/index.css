@@ -1,5 +1,9 @@
 *, *::before, *::after {
-  cursor: none;
+  cursor: none !important;
+}
+a, button, input, textarea, select, 
+[role="button"], label {
+  cursor: none !important;
 }
 @import "tailwindcss";
 

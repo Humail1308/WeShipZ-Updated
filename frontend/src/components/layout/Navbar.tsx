@@ -70,7 +70,7 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
               objectFit: 'contain',
               mixBlendMode: 'screen',
               opacity: 0.9,
-              cursor: 'pointer'
+              cursor: 'none'
             }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
@@ -123,7 +123,7 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
                 fontSize:     "0.875rem",
                 borderRadius: "999px",
                 border:       "none",
-                cursor:       "pointer",
+                cursor: 'none',
                 whiteSpace:   "nowrap",
                 boxShadow:    "0 2px 12px rgba(37,99,235,0.35)",
                 letterSpacing:"0.02em",
@@ -141,7 +141,7 @@ export function Navbar({ onBookCall }: { onBookCall: () => void }) {
                 borderRadius: "50%",
                 width:        36,
                 height:       36,
-                cursor:       "pointer",
+                cursor: 'none',
                 alignItems:   "center",
                 justifyContent:"center",
                 flexDirection: "column",
