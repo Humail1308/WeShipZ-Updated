@@ -68,7 +68,7 @@ const getResponse = (input: string) => {
   }
 
   // Default response
-  return "That's a great question! For detailed information, I'd recommend booking a free audit call where our team can give you a personalized answer. Click 'Book a Free Audit' below!";
+  return "Sorry, I don't have info on that — but our team definitely can help! Book a free audit call for a personalized answer.";
 };
 
 export function Chatbot() {
@@ -77,11 +77,12 @@ export function Chatbot() {
     { role: 'bot', content: "Hey! I'm the WESHIPZ support bot. Want to see how much manual work we can save you?" }
   ]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isTyping]);
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -90,12 +91,14 @@ export function Chatbot() {
     const userMsg = input.trim();
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setInput('');
+    setIsTyping(true);
     
     // Simulate bot reply
     setTimeout(() => {
       const botReply = getResponse(userMsg);
       setMessages(prev => [...prev, { role: 'bot', content: botReply }]);
-    }, 1000);
+      setIsTyping(false);
+    }, 1500);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -133,6 +136,32 @@ export function Chatbot() {
                 {msg.content}
               </motion.div>
             ))}
+            {isTyping && (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-electric-blue text-white p-3 rounded-tr-xl rounded-b-xl shadow-sm self-start mr-8 flex gap-1 items-center h-[44px]"
+              >
+                <motion.div 
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, delay: 0 }}
+                />
+                <motion.div 
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, delay: 0.15 }}
+                />
+                <motion.div 
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, delay: 0.3 }}
+                />
+              </motion.div>
+            )}
             <div ref={chatEndRef} />
           </div>
           
