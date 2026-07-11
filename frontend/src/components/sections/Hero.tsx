@@ -61,9 +61,6 @@ export function Hero({ onBookCall }: { onBookCall: () => void }) {
         </motion.div>
 
         {/* Corner Elements */}
-        <div className="absolute top-6 right-6 md:top-8 md:right-8 font-label-mono text-[10px] md:text-xs text-white/20 tracking-widest z-10 hidden md:block">
-          KHI / PAK
-        </div>
         
         <button 
           onClick={onBookCall}

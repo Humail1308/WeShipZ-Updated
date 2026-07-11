@@ -4,16 +4,18 @@ import { AnimatedHeading } from '../ui/AnimatedHeading';
 
 const prices: Record<string, Record<string, string>> = {
   USD: {
-    starter: '$350',
-    growth: '$500',
+    starter: '$199',
+    growth: '$359',
     scale: 'Custom',
     scaleSub: ' Quote',
+    motion: '$199'
   },
   PKR: {
     starter: 'PKR 50,000',
     growth: 'PKR 100,000',
     scale: 'Custom',
     scaleSub: ' Quote',
+    motion: 'PKR 40,000'
   }
 };
 
@@ -22,9 +24,9 @@ const cards = [
     id: "starter",
     title: "Starter",
     desc: "One core automation to solve your biggest pain point.",
-    price: "$2,500",
+    price: "$199",
     setup: "/setup",
-    features: ["Lead Capture Automation", "CRM Integration", "2 Weeks Support"],
+    features: ["Lead Capture → CRM Pipeline", "Instant Follow-Up Trigger", "2 Weeks Support"],
     btnText: "Get Started",
     btnClass: "border border-white/10 hover:bg-white/5",
     isPopular: false
@@ -33,9 +35,9 @@ const cards = [
     id: "growth",
     title: "Growth",
     desc: "Full operational automation for scaling agencies.",
-    price: "$6,000",
+    price: "$359",
     setup: "/setup",
-    features: ["Full AI Support Agent", "Custom Dashboards", "Unlimited Workflows", "1 Month High-Touch Support"],
+    features: ["Full AI Support Agent", "Custom Dashboard", "Up to 5 Connected Workflows", "1 Month High-Touch Support"],
     btnText: "Book Now",
     btnClass: "bg-electric-blue text-white hover:brightness-110",
     isPopular: true
@@ -46,8 +48,19 @@ const cards = [
     desc: "Custom AI ecosystem for established enterprises.",
     price: "Custom",
     setup: " Quote",
-    features: ["Proprietary LLM Fine-tuning", "Legacy System Integration", "Dedicated Automation Lead"],
+    features: ["Custom AI Knowledge Integration", "Legacy System Integration", "Dedicated Automation Lead"],
     btnText: "Contact Sales",
+    btnClass: "border border-white/10 hover:bg-white/5",
+    isPopular: false
+  },
+  {
+    id: "motion",
+    title: "Motion Experts",
+    desc: "High-quality motion graphic ads for businesses that need creative, not automation.",
+    price: "$199",
+    setup: "/setup",
+    features: ["3x 15-Second Motion Graphic Ads", "Supporting Image Generation Set", "Marketing Copy & Captions", "2 Revision Rounds"],
+    btnText: "Get Started",
     btnClass: "border border-white/10 hover:bg-white/5",
     isPopular: false
   }
@@ -70,8 +83,8 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
       .catch(() => setCurrency('USD'));
   }, []);
 
-  const nextCard = () => setActiveIndex((prev) => (prev + 1) % 3);
-  const prevCard = () => setActiveIndex((prev) => (prev - 1 + 3) % 3);
+  const nextCard = () => setActiveIndex((prev) => (prev + 1) % cards.length);
+  const prevCard = () => setActiveIndex((prev) => (prev - 1 + cards.length) % cards.length);
 
   const getCardStyle = (index: number) => {
     if (index === activeIndex) {
@@ -85,7 +98,10 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
         boxShadow: "0 0 40px rgba(37,99,235,0.3)"
       };
     }
-    const isLeft = index === (activeIndex - 1 + 3) % 3;
+    
+    const isLeft = index === (activeIndex - 1 + cards.length) % cards.length;
+    const isRight = index === (activeIndex + 1) % cards.length;
+    
     if (isLeft) {
       return {
         x: "-65%",
@@ -96,24 +112,37 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
         zIndex: 1,
         boxShadow: "0 0 0px rgba(37,99,235,0)"
       };
+    } else if (isRight) {
+      return {
+        x: "65%",
+        rotateY: -35,
+        scale: 0.8,
+        filter: "blur(2px)",
+        opacity: 0.5,
+        zIndex: 1,
+        boxShadow: "0 0 0px rgba(37,99,235,0)"
+      };
     }
+    
     return {
-      x: "65%",
-      rotateY: -35,
-      scale: 0.8,
-      filter: "blur(2px)",
-      opacity: 0.5,
-      zIndex: 1,
+      x: "0%",
+      rotateY: 0,
+      scale: 0.6,
+      filter: "blur(5px)",
+      opacity: 0,
+      zIndex: 0,
       boxShadow: "0 0 0px rgba(37,99,235,0)"
     };
   };
 
   const handleCardClick = (index: number) => {
     if (index === activeIndex) return;
-    const isLeft = index === (activeIndex - 1 + 3) % 3;
+    const isLeft = index === (activeIndex - 1 + cards.length) % cards.length;
+    const isRight = index === (activeIndex + 1) % cards.length;
+    
     if (isLeft) {
       prevCard();
-    } else {
+    } else if (isRight) {
       nextCard();
     }
   };
@@ -182,7 +211,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
                 <div className="text-4xl font-headline-md mb-8">
                   {prices[currency][card.id] || card.price}
                   <span className="text-lg font-body-md text-on-surface-variant">
-                    {card.id === 'scale' ? prices[currency].scaleSub : '/setup'}
+                    {card.id === 'scale' ? prices[currency].scaleSub : card.setup}
                   </span>
                 </div>
                 <ul className="space-y-4 mb-12 flex-grow h-[150px]">
@@ -219,7 +248,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
             <div className="text-4xl font-headline-md mb-8 text-left">
               {prices[currency][card.id] || card.price}
               <span className="text-lg font-body-md text-on-surface-variant">
-                {card.id === 'scale' ? prices[currency].scaleSub : '/setup'}
+                {card.id === 'scale' ? prices[currency].scaleSub : card.setup}
               </span>
             </div>
             <ul className="space-y-4 mb-12 flex-grow text-left">

@@ -48,13 +48,13 @@ const getResponse = (input: string) => {
   if(msg.includes('ai') || msg.includes('artificial') || 
      msg.includes('intelligent') || msg.includes('chatbot') ||
      msg.includes('bot')) {
-    return "We build custom AI systems — not just generic chatbots. Think intelligent lead capture, smart customer support, AI-powered content pipelines, and more. All custom-engineered for your business.";
+    return "We build custom AI systems, not generic chatbots. Think intelligent lead capture, smart customer support, AI-powered content pipelines, and more. All custom-engineered for your business.";
   }
   
   if(msg.includes('hello') || msg.includes('hi') || 
      msg.includes('hey') || msg.includes('salam') ||
      msg.includes('assalam')) {
-    return "Hey! 👋 Welcome to WeShipZ. I'm here to help you learn about our AI automation services. What would you like to know — our services, pricing, or how to get started?";
+    return "Hey! Welcome to WeShipZ. I'm here to help you learn about our AI automation services. What would you like to know our services, pricing, or how to get started?";
   }
   
   if(msg.includes('start') || msg.includes('begin') || 
