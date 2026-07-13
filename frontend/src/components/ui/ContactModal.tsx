@@ -106,8 +106,8 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!service || !problemDescription.trim()) {
-      setFormError('Please complete all project details.');
+    if (!service || (service === 'Other' && !problemDescription.trim())) {
+      setFormError('Please complete all required project details.');
       return;
     }
     
@@ -408,7 +408,7 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
                           onChange={(e) => setProblemDescription(e.target.value)}
                           disabled={isSubmitting}
                           className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 outline-none focus:border-electric-blue focus:bg-white transition-colors resize-none h-[120px] disabled:opacity-50"
-                          required
+                          required={service === 'Other'}
                         />
 
                         <div className="flex gap-3 mt-4">
