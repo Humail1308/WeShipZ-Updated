@@ -83,7 +83,7 @@ const thankYouEmailHTML = (name, email, whatsapp, service, message) => `
 </body>
 </html>`;
 
-const teamNotificationHTML = (name, email, whatsapp, service, message) => `
+const teamNotificationHTML = (name, email, whatsapp, service, message, companyName, website, companySize) => `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
@@ -94,12 +94,24 @@ const teamNotificationHTML = (name, email, whatsapp, service, message) => `
         <h2 style="font-family:Arial,sans-serif;color:#fff;margin:0;font-size:1.1rem;font-weight:700;">New Lead — WeShipZ</h2>
       </div>
       <div style="padding:28px 32px;">
-        <table style="width:100%;border-collapse:collapse;">
-          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;width:100px;">Name</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${name}</td></tr>
+        <p style="font-family:Arial,sans-serif;color:#9ca3af;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700;">Contact Info</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;width:130px;">Name</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${name}</td></tr>
           <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;">Email</td><td style="font-family:Arial,sans-serif;color:#2563eb;font-size:0.82rem;padding:10px 0;font-weight:600;">${email}</td></tr>
           <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;">WhatsApp</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${whatsapp}</td></tr>
-          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;">Service</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${service}</td></tr>
-          ${message ? `<tr><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;vertical-align:top;">Message</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;line-height:1.5;">${message}</td></tr>` : ''}
+        </table>
+
+        <p style="font-family:Arial,sans-serif;color:#9ca3af;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700;">Business Info</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;width:130px;">Business Name</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${companyName || 'Not provided'}</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;">Website</td><td style="font-family:Arial,sans-serif;color:#2563eb;font-size:0.82rem;padding:10px 0;font-weight:600;">${website || 'Not provided'}</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;">Company Size</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${companySize || 'Not provided'}</td></tr>
+        </table>
+
+        <p style="font-family:Arial,sans-serif;color:#9ca3af;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700;">Project Details</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;width:130px;">Service</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;font-weight:600;">${service}</td></tr>
+          ${message ? `<tr><td style="font-family:Arial,sans-serif;color:#6b7280;font-size:0.82rem;padding:10px 0;vertical-align:top;">Problem Description</td><td style="font-family:Arial,sans-serif;color:#111;font-size:0.82rem;padding:10px 0;line-height:1.5;">${message}</td></tr>` : ''}
         </table>
       </div>
       <div style="padding:16px 32px 24px;background:#f9fafb;border-top:1px solid #e5e7eb;">
@@ -130,7 +142,18 @@ app.post('/api/send-verification', async (req, res) => {
 });
 
 app.post('/api/verify-and-submit', async (req, res) => {
-  const { email, code, name, whatsapp, service, message } = req.body;
+  const {
+    email,
+    code,
+    name,
+    whatsapp,
+    service,
+    message,
+    companyName,
+    website,
+    companySize
+  } = req.body;
+
   const stored = verificationCodes.get(email);
   if (!stored) return res.status(400).json({ error: 'No verification code found. Please request again.' });
   if (Date.now() > stored.expires) {
@@ -139,6 +162,7 @@ app.post('/api/verify-and-submit', async (req, res) => {
   }
   if (stored.code !== code) return res.status(400).json({ error: 'Invalid code. Please try again.' });
   verificationCodes.delete(email);
+
   try {
     await resend.emails.send({
       from: 'WeShipZ <noreply@weshipz.com>',
@@ -150,7 +174,7 @@ app.post('/api/verify-and-submit', async (req, res) => {
       from: 'WeShipZ <noreply@weshipz.com>',
       to: 'weshipzhq@gmail.com',
       subject: `New Lead: ${name} — ${service}`,
-      html: teamNotificationHTML(name, email, whatsapp, service, message),
+      html: teamNotificationHTML(name, email, whatsapp, service, message, companyName, website, companySize),
     });
     res.json({ success: true, message: 'Form submitted successfully' });
   } catch (err) {
