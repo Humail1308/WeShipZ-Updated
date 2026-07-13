@@ -386,21 +386,26 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
                         transition={{ duration: 0.2 }}
                         className="flex flex-col gap-4"
                       >
-                        <select 
-                          required 
-                          value={service}
-                          onChange={(e) => setService(e.target.value)}
-                          disabled={isSubmitting}
-                          className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 outline-none focus:border-electric-blue focus:bg-white transition-colors appearance-none disabled:opacity-50"
-                        >
-                          <option value="" disabled>What do you want to automate?</option>
-                          <option value="AI Customer Support">AI Customer Support</option>
-                          <option value="Lead Scoring">Lead Scoring</option>
-                          <option value="Data Engines">Data Engines</option>
-                          <option value="Custom Internal Tools">Custom Internal Tools</option>
-                          <option value="Motion & Ad Creatives">Motion & Ad Creatives</option>
-                          <option value="Other">Other</option>
-                        </select>
+                        <div className="mb-2">
+                          <span className="text-gray-900 font-bold mb-3 block">What do you want to automate?</span>
+                          <div className="flex flex-wrap gap-2">
+                            {['AI Customer Support', 'Lead Scoring', 'Data Engines', 'Custom Internal Tools', 'Motion & Ad Creatives'].map(option => (
+                              <button
+                                key={option}
+                                type="button"
+                                disabled={isSubmitting}
+                                onClick={() => setService(option)}
+                                className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
+                                  service === option 
+                                    ? 'bg-electric-blue border-electric-blue text-white' 
+                                    : 'bg-white border-gray-200 text-gray-700 hover:border-electric-blue hover:bg-blue-50'
+                                } disabled:opacity-50`}
+                              >
+                                {option}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                         
                         <textarea 
                           placeholder="e.g. We're losing leads because follow-ups take too long..."
