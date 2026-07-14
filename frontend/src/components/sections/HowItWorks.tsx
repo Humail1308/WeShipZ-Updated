@@ -20,17 +20,17 @@ export function HowItWorks() {
     {
       id: "01",
       title: "Free Audit Call",
-      description: "We map out your current bottlenecks and find exactly where AI can replace 10+ hours of weekly manual work."
+      description: "We dig into your workflows and creative gaps to find exactly where automation saves time or where a sharper ad actually converts."
     },
     {
       id: "02",
       title: "The Build Phase",
-      description: "We ship your custom automation architecture in 2-4 weeks. No generic templates, just pure engineering."
+      description: "We build your custom automation architecture or motion graphic ads in 2-4 weeks. No templates, no stock footage, just work made for your business."
     },
     {
       id: "03",
       title: "Manage & Optimize",
-      description: "We don't just hand over the keys. We monitor, refine, and upgrade your systems as your business evolves."
+      description: "We don't just hand over the keys. We monitor, refine, and upgrade your systems, and keep your creative fresh as your business evolves."
     }
   ];
 

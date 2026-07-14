@@ -4,18 +4,18 @@ import { AnimatedHeading } from '../ui/AnimatedHeading';
 
 const prices: Record<string, Record<string, string>> = {
   USD: {
-    starter: '$199',
-    growth: '$359',
+    starter: '$299',
+    growth: '$999',
     scale: 'Custom',
     scaleSub: ' Quote',
-    motion: '$199'
+    motion: '$499'
   },
   PKR: {
-    starter: 'PKR 50,000',
-    growth: 'PKR 100,000',
+    starter: 'PKR 49,999',
+    growth: 'PKR 119,999',
     scale: 'Custom',
     scaleSub: ' Quote',
-    motion: 'PKR 40,000'
+    motion: 'PKR 49,999'
   }
 };
 
@@ -24,7 +24,7 @@ const cards = [
     id: "starter",
     title: "Starter",
     desc: "One core automation to solve your biggest pain point.",
-    price: "$199",
+    price: "$299",
     setup: "/setup",
     features: ["Lead Capture → CRM Pipeline", "Instant Follow-Up Trigger", "2 Weeks Support"],
     btnText: "Get Started",
@@ -35,7 +35,7 @@ const cards = [
     id: "growth",
     title: "Growth",
     desc: "Full operational automation for scaling agencies.",
-    price: "$359",
+    price: "$999",
     setup: "/setup",
     features: ["Full AI Support Agent", "Custom Dashboard", "Up to 5 Connected Workflows", "1 Month High-Touch Support"],
     btnText: "Book Now",
@@ -57,8 +57,8 @@ const cards = [
     id: "motion",
     title: "Motion Experts",
     desc: "High-quality motion graphic ads for businesses that need creative, not automation.",
-    price: "$199",
-    setup: "/setup",
+    price: "$499",
+    setup: "/project",
     features: ["3x 15-Second Motion Graphic Ads", "Supporting Image Generation Set", "Marketing Copy & Captions", "2 Revision Rounds"],
     btnText: "Get Started",
     btnClass: "border border-white/10 hover:bg-white/5",
@@ -188,7 +188,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
         </button>
 
         {/* Carousel Container */}
-        <div className="relative h-[520px] w-full" style={{ transformStyle: "preserve-3d" }}>
+        <div className="relative h-[650px] w-full" style={{ transformStyle: "preserve-3d" }}>
           {cards.map((card, index) => {
             const style = getCardStyle(index);
             const isCenter = index === activeIndex;
@@ -270,7 +270,7 @@ export function Pricing({ onBookCall }: { onBookCall: () => void }) {
       </div>
 
       {/* Dot Indicators */}
-      <div className="hidden md:flex items-center justify-center gap-3 mt-8">
+      <div className="hidden md:flex items-center justify-center gap-3 mt-12">
         {cards.map((_, index) => (
           <button
             key={index}
