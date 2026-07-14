@@ -98,7 +98,7 @@ export function HowItWorks() {
                     <div className="md:text-right">
                       <span className="font-display-xl text-5xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
                       <h3 className="font-headline-md text-2xl md:text-5xl mb-4 text-white">{step.title}</h3>
-                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-auto md:mr-0">{step.description}</p>
+                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-auto md:mr-0" style={{ textWrap: "balance" }}>{step.description}</p>
                     </div>
                     <div className="hidden md:block"></div>
                   </>
@@ -108,7 +108,7 @@ export function HowItWorks() {
                     <div>
                       <span className="font-display-xl text-5xl md:text-9xl text-white/[0.05] block mb-2">{step.id}</span>
                       <h3 className="font-headline-md text-2xl md:text-5xl mb-4 text-white">{step.title}</h3>
-                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-0 md:mr-auto">{step.description}</p>
+                      <p className="font-body-lg text-on-surface-variant max-w-md mx-auto md:ml-0 md:mr-auto" style={{ textWrap: "balance" }}>{step.description}</p>
                     </div>
                   </>
                 )}
