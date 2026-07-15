@@ -3,12 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { countries } from './countries';
 
 export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-  const [step, setStep] = useState<'form' | 'verify' | 'success'>('form');
+  const [step, setStep] = useState<'form' | 'success'>('form');
   const [formStep, setFormStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
   const [formError, setFormError] = useState('');
-  const [verifyError, setVerifyError] = useState('');
   
   // Step 1
   const [name, setName] = useState('');
@@ -24,8 +22,6 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
   // Step 3
   const [service, setService] = useState('');
   const [problemDescription, setProblemDescription] = useState('');
-
-  const [verificationCode, setVerificationCode] = useState('');
 
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
@@ -47,9 +43,7 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
         setCompanySize('');
         setService('');
         setProblemDescription('');
-        setVerificationCode('');
         setFormError('');
-        setVerifyError('');
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -115,32 +109,11 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
     setIsSubmitting(true);
     
     try {
-      const res = await fetch('https://weshipz-updated-production.up.railway.app/api/send-verification', {
+      const res = await fetch('https://weshipz-updated-production.up.railway.app/api/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name })
-      });
-      if (!res.ok) throw new Error('Failed to send code');
-      setStep('verify');
-    } catch (err) {
-      setFormError('Could not send verification code. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleVerifySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setVerifyError('');
-    setIsVerifying(true);
-    
-    try {
-      const res = await fetch('https://weshipz-updated-production.up.railway.app/api/verify-and-submit', {
-        method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          code: verificationCode,
           name,
           whatsapp: `${selectedCountry.dial_code} ${phone}`,
           companyName,
@@ -150,15 +123,15 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
           message: problemDescription
         })
       });
-      if (!res.ok) throw new Error('Invalid code');
+      if (!res.ok) throw new Error('Submission failed');
       setStep('success');
       setTimeout(() => {
         onClose();
       }, 3000);
     } catch (err) {
-      setVerifyError('Invalid verification code. Please try again.');
+      setFormError('Could not submit details. Please try again.');
     } finally {
-      setIsVerifying(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -183,7 +156,7 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
             <button 
               onClick={onClose}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors disabled:opacity-50"
-              disabled={isSubmitting || isVerifying}
+              disabled={isSubmitting}
             >
               <span className="material-symbols-outlined">close</span>
             </button>
@@ -430,48 +403,12 @@ export function ContactModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
                             disabled={isSubmitting}
                             className="flex-[2] bg-electric-blue hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition-all shadow-[0_10px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_15px_25px_rgba(59,130,246,0.4)] hover:-translate-y-1 disabled:opacity-70 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                           >
-                            {isSubmitting ? 'Sending Code...' : 'Submit'}
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
                           </button>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-
-                </form>
-              </motion.div>
-            )}
-
-            {step === 'verify' && (
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }} 
-                animate={{ opacity: 1, x: 0 }} 
-                className="flex flex-col items-center justify-center py-4"
-              >
-                <h3 className="font-headline-md text-3xl mb-2 text-gray-900 text-center">Verify Email</h3>
-                <p className="text-green-600 mb-8 text-sm text-center">Code sent to {email}</p>
-                
-                <form className="flex flex-col gap-6 w-full items-center" onSubmit={handleVerifySubmit}>
-                  <input 
-                    type="text"
-                    maxLength={6}
-                    placeholder="Enter 6-digit code"
-                    required
-                    value={verificationCode}
-                    onChange={(e) => setVerificationCode(e.target.value.replace(/[^0-9]/g, ''))}
-                    disabled={isVerifying}
-                    className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 text-gray-900 outline-none focus:border-electric-blue focus:bg-white transition-colors text-center text-2xl tracking-[0.3em] w-full max-w-[240px] font-mono disabled:opacity-50"
-                  />
-                  {verifyError && (
-                    <span className="text-[#ef4444] text-sm">{verifyError}</span>
-                  )}
-                  
-                  <button 
-                    type="submit" 
-                    disabled={isVerifying || verificationCode.length !== 6}
-                    className="w-full bg-electric-blue hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition-all shadow-[0_10px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_15px_25px_rgba(59,130,246,0.4)] hover:-translate-y-1 disabled:opacity-70 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
-                  >
-                    {isVerifying ? 'Verifying...' : 'Verify & Submit'}
-                  </button>
                 </form>
               </motion.div>
             )}
