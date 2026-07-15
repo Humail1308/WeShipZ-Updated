@@ -186,15 +186,17 @@ export function Results() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-white/10">
-                  <a 
-                    href={projects[activeProject].pdf} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                  <button 
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(projects[activeProject].pdf, '_blank', 'noopener,noreferrer');
+                    }}
                     className="px-8 py-4 bg-electric-blue text-white rounded font-medium hover:brightness-110 transition-all text-center"
                     style={{ cursor: 'none' }}
                   >
                     Preview Case Study
-                  </a>
+                  </button>
                   <button 
                     onClick={() => setActiveProject(null)}
                     className="px-8 py-4 border border-white/20 text-white rounded font-medium hover:bg-white/5 transition-all"
