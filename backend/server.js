@@ -11,42 +11,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const verificationCodes = new Map();
-const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
-
-const verificationEmailHTML = (name, code) => `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#0a0a0f;">
-  <div style="max-width:520px;margin:0 auto;padding:24px;">
-    <div style="background:#05050a;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
-      <div style="padding:28px 36px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
-        <span style="font-family:Arial,sans-serif;font-size:1.5rem;font-weight:900;letter-spacing:-0.02em;">
-          <span style="color:#ffffff;">WE</span><span style="color:#2563eb;">SHIPZ</span>
-        </span>
-      </div>
-      <div style="padding:32px 36px;">
-        <h2 style="font-family:Arial,sans-serif;color:#ffffff;font-size:1.15rem;font-weight:700;margin:0 0 8px;">Your Verification Code</h2>
-        <p style="font-family:Arial,sans-serif;color:rgba(255,255,255,0.55);font-size:0.88rem;margin:0 0 28px;line-height:1.6;">
-          Hi ${name}, use the code below to verify your email and complete your request.
-        </p>
-        <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.3);border-radius:14px;padding:28px;text-align:center;margin-bottom:24px;">
-          <span style="font-family:'Courier New',monospace;font-size:2.4rem;font-weight:800;letter-spacing:0.35em;color:#2563eb;">${code}</span>
-        </div>
-        <p style="font-family:Arial,sans-serif;color:rgba(255,255,255,0.3);font-size:0.78rem;margin:0;line-height:1.6;">
-          This code expires in <strong style="color:rgba(255,255,255,0.5);">10 minutes</strong>.<br>
-          If you didn't request this, you can safely ignore this email.
-        </p>
-      </div>
-      <div style="padding:18px 36px 24px;border-top:1px solid rgba(255,255,255,0.06);">
-        <p style="font-family:Arial,sans-serif;color:rgba(255,255,255,0.25);font-size:0.75rem;margin:0;">&copy; 2026 WeShipZ. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
-</body>
-</html>`;
-
 const thankYouEmailHTML = (name, email, whatsapp, service, message) => `
 <!DOCTYPE html>
 <html>
@@ -122,30 +86,10 @@ const teamNotificationHTML = (name, email, whatsapp, service, message, companyNa
 </body>
 </html>`;
 
-app.post('/api/send-verification', async (req, res) => {
-  const { email, name } = req.body;
-  if (!email || !name) return res.status(400).json({ error: 'Name and email required' });
-  const code = generateCode();
-  verificationCodes.set(email, { code, name, expires: Date.now() + 10 * 60 * 1000 });
-  try {
-    await resend.emails.send({
-      from: 'WeShipZ <noreply@weshipz.com>',
-      to: email,
-      subject: 'Your WeShipZ Verification Code',
-      html: verificationEmailHTML(name, code),
-    });
-    res.json({ success: true, message: 'Verification code sent' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to send email' });
-  }
-});
-
-app.post('/api/verify-and-submit', async (req, res) => {
+app.post('/api/submit', async (req, res) => {
   const {
-    email,
-    code,
     name,
+    email,
     whatsapp,
     service,
     message,
@@ -154,14 +98,9 @@ app.post('/api/verify-and-submit', async (req, res) => {
     companySize
   } = req.body;
 
-  const stored = verificationCodes.get(email);
-  if (!stored) return res.status(400).json({ error: 'No verification code found. Please request again.' });
-  if (Date.now() > stored.expires) {
-    verificationCodes.delete(email);
-    return res.status(400).json({ error: 'Code expired. Please request again.' });
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name and email are required' });
   }
-  if (stored.code !== code) return res.status(400).json({ error: 'Invalid code. Please try again.' });
-  verificationCodes.delete(email);
 
   try {
     await resend.emails.send({
