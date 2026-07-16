@@ -8,21 +8,21 @@ import shortsImg from '../../assets/workflows/shorts.png';
 const projects = [
   {
     name: "E-Commerce Listing Generator",
-    description: "AI workflow that auto-generates product listings, titles & descriptions at scale.",
+    description: "Upload a product photo, and the title, description, and details are written for you automatically. No more typing out listings by hand.",
     image: ecommerceImg,
     tag: "E-Commerce · Automation",
     pdf: "/case-studies/ecommerce.pdf"
   },
   {
     name: "Resume Rewriter",
-    description: "Automated resume tailoring system that rewrites CVs based on job descriptions.",
+    description: "Paste in a job posting and a resume, and get a version tailored to that specific job in seconds. No more rewriting resumes from scratch every time.",
     image: resumeImg,
     tag: "HR · AI Writing",
     pdf: "/case-studies/resume.pdf"
   },
   {
     name: "Automated Shorts Creator",
-    description: "End-to-end pipeline that turns long-form content into short-form videos automatically.",
+    description: "Turns one long video into several short, ready-to-post clips automatically. No more manually cutting and editing every single clip by hand.",
     image: shortsImg,
     tag: "Content · Video AI",
     pdf: "/case-studies/shorts.pdf"
@@ -66,7 +66,7 @@ export function Results() {
             <AnimatedHeading text="Portfolio." className="font-headline-lg text-headline-lg-mobile md:text-headline-lg" />
           </motion.div>
           <p className="font-body-lg text-on-surface-variant max-w-sm">
-            Actual systems we've deployed for clients that are saving hundreds of hours weekly.
+            Real tools we've built for real businesses - each one saves hours of manual work every week.
           </p>
         </div>
 
