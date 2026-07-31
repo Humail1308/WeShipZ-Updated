@@ -66,13 +66,13 @@ a, button, input, textarea, select,
   --spacing-asymmetric-offset: 8.33%;
   --spacing-gutter: 32px;
 
-  --font-label-mono: "Geist Mono", monospace;
-  --font-display-xl: "Clash Display", sans-serif;
-  --font-body-md: "Satoshi", sans-serif;
-  --font-headline-md: "Clash Display", sans-serif;
-  --font-headline-lg: "Clash Display", sans-serif;
-  --font-display-xl-mobile: "Clash Display", sans-serif;
-  --font-body-lg: "Satoshi", sans-serif;
+  --font-label-mono: "'Geist Mono', monospace";
+  --font-display-xl: "'Clash Display', sans-serif";
+  --font-body-md: "'Space Grotesk', sans-serif";
+  --font-headline-md: "'Clash Display', sans-serif";
+  --font-headline-lg: "'Clash Display', sans-serif";
+  --font-display-xl-mobile: "'Clash Display', sans-serif";
+  --font-body-lg: "'Space Grotesk', sans-serif";
 
   --text-label-mono: 12px;
   --text-label-mono--line-height: 1.0;
@@ -116,6 +116,7 @@ a, button, input, textarea, select,
     margin: 0;
     background-color: var(--color-background);
     color: var(--color-on-surface);
+    font-family: var(--font-body-md);
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
   }
