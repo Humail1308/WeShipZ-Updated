@@ -34,16 +34,20 @@ export function FAQ() {
       </motion.div>
       <div className="space-y-4">
         <FaqItem 
-          question="Will this work for my specific industry?" 
-          answer="Yes. If your business uses digital tools (Email, CRM, Calendars, Invoicing), it can be automated. We specialize in service businesses, e-commerce, and digital agencies."
+          question="What exactly will I get — automation, ads, or both?" 
+          answer="Depends on your business. After the free audit, we recommend exactly what makes sense — could be automation, ad creatives, or both."
         />
         <FaqItem 
-          question="How long does it take to see ROI?" 
-          answer="Usually within the first month. By replacing manual tasks with AI, the labor cost savings often cover our fees immediately."
+          question="Do I need any technical knowledge to get started?" 
+          answer="No. You answer a few simple questions, we handle everything technical."
         />
         <FaqItem 
-          question="Do we need to switch our software?" 
-          answer="No. We build connections between the tools you already love. We only recommend new tools if your current stack is preventing growth."
+          question="How long will it take?" 
+          answer="Ad creatives: 48 hours. Automations: 2-4 weeks depending on complexity."
+        />
+        <FaqItem 
+          question="How do I get in touch?" 
+          answer="Book a free audit call — no commitment, just a real look at what would help."
         />
       </div>
     </section>

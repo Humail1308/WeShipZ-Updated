@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedHeading } from '../ui/AnimatedHeading';
 import ecommerceImg from '../../assets/workflows/ecommerce.jpeg';
@@ -28,6 +28,103 @@ const projects = [
     pdf: "/case-studies/shorts.pdf"
   },
 ];
+
+const videoProjects = [
+  {
+    name: "Dunkin' — Hot Trending Deal",
+    tag: "Food & Beverage · Story Ad",
+    video: "/ads/dunkin.mp4"
+  },
+  {
+    name: "Dot & Key",
+    tag: "Skincare · Product Ad",
+    video: "/ads/dotkey.mp4"
+  },
+  {
+    name: "Crystal Light",
+    tag: "Beverages · Product Ad",
+    video: "/ads/crystallight.mp4"
+  }
+];
+
+function VideoCard({ project, idx }: { project: any, idx: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const timeoutRef = useRef<any>(null);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(e => console.log(e));
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      }, 4000);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: idx * 0.1 }}
+      className="group bg-background-elevated border border-white/10 rounded-xl overflow-hidden relative"
+      style={{ 
+        transition: 'transform 400ms ease-in-out, box-shadow 400ms ease-in-out', 
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+        boxShadow: isHovered ? '0 20px 60px rgba(37,99,235,0.2)' : '0 0 0 rgba(0,0,0,0)'
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="aspect-[16/10] relative overflow-hidden bg-white/5">
+        <video 
+          ref={videoRef}
+          src={project.video}
+          muted
+          playsInline
+          loop={false}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          preload="metadata"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
+           <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur flex items-center justify-center">
+             <span className="material-symbols-outlined text-white text-2xl">play_arrow</span>
+           </div>
+        </div>
+      </div>
+
+      <div className="p-6 relative z-10">
+        <span 
+          className="text-electric-blue block mb-2 uppercase"
+          style={{ 
+            fontFamily: "'Space Grotesk', sans-serif", 
+            letterSpacing: "0.15em", 
+            fontSize: "0.72rem",
+            fontWeight: "700"
+          }}
+        >
+          {project.tag}
+        </span>
+        <h3 className="font-headline-sm text-headline-sm mb-2">{project.name}</h3>
+      </div>
+    </motion.div>
+  );
+}
 
 export function Results() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
@@ -137,6 +234,26 @@ export function Results() {
                 </p>
               </div>
             </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-24 mb-12">
+          <span 
+            className="text-electric-blue block uppercase"
+            style={{ 
+              fontFamily: "'Space Grotesk', sans-serif", 
+              letterSpacing: "0.15em", 
+              fontSize: "0.75rem",
+              fontWeight: "700"
+            }}
+          >
+            AD CREATIVES
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {videoProjects.map((project, idx) => (
+             <VideoCard key={idx} project={project} idx={idx} />
           ))}
         </div>
       </section>

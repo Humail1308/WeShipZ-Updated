@@ -8,6 +8,8 @@ import { HowItWorks } from '../components/sections/HowItWorks';
 import { Results } from '../components/sections/Results';
 import { Reviews } from '../components/sections/Reviews';
 import { Pricing } from '../components/sections/Pricing';
+import { LaunchPricing } from '../components/sections/LaunchPricing';
+import { Benefits } from '../components/sections/Benefits';
 import { FAQ } from '../components/sections/FAQ';
 import { ContactModal } from '../components/ui/ContactModal';
 import { Chatbot } from '../components/ui/Chatbot';
@@ -26,10 +28,12 @@ export function Home() {
       <main>
         <Hero onBookCall={handleOpenModal} />
         <Integrations />
+        <LaunchPricing onBookCall={handleOpenModal} />
         <Services />
         <HowItWorks />
         <Results />
         <Reviews />
+        <Benefits onBookCall={handleOpenModal} />
         <Pricing onBookCall={handleOpenModal} />
         <FAQ />
         
