@@ -66,13 +66,7 @@ a, button, input, textarea, select,
   --spacing-asymmetric-offset: 8.33%;
   --spacing-gutter: 32px;
 
-  --font-label-mono: "'Geist Mono', monospace";
-  --font-display-xl: "'Clash Display', sans-serif";
-  --font-body-md: "'Space Grotesk', sans-serif";
-  --font-headline-md: "'Clash Display', sans-serif";
-  --font-headline-lg: "'Clash Display', sans-serif";
-  --font-display-xl-mobile: "'Clash Display', sans-serif";
-  --font-body-lg: "'Space Grotesk', sans-serif";
+
 
   --text-label-mono: 12px;
   --text-label-mono--line-height: 1.0;
@@ -116,10 +110,39 @@ a, button, input, textarea, select,
     margin: 0;
     background-color: var(--color-background);
     color: var(--color-on-surface);
-    font-family: var(--font-body-md);
+    font-family: 'Space Grotesk', sans-serif;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', sans-serif;
+  }
+}
+
+@utility font-label-mono {
+  font-family: 'Geist Mono', monospace;
+}
+@utility font-display-xl {
+  font-family: 'Clash Display', sans-serif;
+}
+@utility font-display-xl-mobile {
+  font-family: 'Clash Display', sans-serif;
+}
+@utility font-headline-lg {
+  font-family: 'Clash Display', sans-serif;
+}
+@utility font-headline-md {
+  font-family: 'Clash Display', sans-serif;
+}
+@utility font-headline-sm {
+  font-family: 'Clash Display', sans-serif;
+}
+@utility font-body-lg {
+  font-family: 'Space Grotesk', sans-serif;
+}
+@utility font-body-md {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .ferris-wheel-container {
