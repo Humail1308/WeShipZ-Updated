@@ -9,7 +9,7 @@ const benefits = [
   "No dev team needed",
   "No filming days for ads",
   "No long onboarding process",
-  "No generic templates — everything's built for your business specifically"
+  "No generic templates. Everything's built for your business specifically"
 ];
 
 export function Benefits({ onBookCall }: BenefitsProps) {
@@ -77,7 +77,7 @@ export function Benefits({ onBookCall }: BenefitsProps) {
 
         <div className="text-center">
           <p className="font-body-lg text-white mb-8">
-            We're a full-cycle agency — automation, creative, and support, all in one place.
+            We're a full-cycle agency: automation, creative, and support, all in one place.
           </p>
           <button 
             onClick={onBookCall}

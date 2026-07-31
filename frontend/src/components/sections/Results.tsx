@@ -47,10 +47,145 @@ const videoProjects = [
   }
 ];
 
-function VideoCard({ project, idx }: { project: any, idx: number }) {
+function CustomVideoPlayer({ project, layoutId, onClose }: { project: any, layoutId: string, onClose: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(console.error);
+    }
+  }, []);
+
+  const formatTime = (timeInSeconds: number) => {
+    if (isNaN(timeInSeconds)) return "0:00";
+    const m = Math.floor(timeInSeconds / 60);
+    const s = Math.floor(timeInSeconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      setCurrentTime(videoRef.current.currentTime);
+      setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration);
+    }
+  };
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleScrub = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, x / rect.width));
+      const newTime = percentage * videoRef.current.duration;
+      videoRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+      setProgress(percentage * 100);
+    }
+  };
+
+  return (
+    <motion.div 
+      layoutId={layoutId}
+      className="relative bg-black rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(37,99,235,0.25)] flex flex-col w-full max-w-[90vw] md:max-w-4xl mx-auto"
+      style={{ aspectRatio: '16/10' }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <video 
+        ref={videoRef}
+        src={project.video}
+        className="w-full h-full object-contain bg-black"
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={() => setIsPlaying(false)}
+        playsInline
+      />
+      
+      {/* Top Close Button */}
+      <button 
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur transition-colors z-50 cursor-pointer"
+      >
+        <span className="material-symbols-outlined text-xl">close</span>
+      </button>
+
+      {/* Custom Controls Overlay */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" style={{ opacity: 1 }}>
+        <div className="flex flex-col gap-3">
+          {/* Progress Bar */}
+          <div 
+            className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer group py-1 -my-1"
+            onClick={handleScrub}
+          >
+            <div 
+              className="h-1.5 bg-electric-blue relative group-hover:bg-blue-400 transition-colors rounded-full"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          
+          <div className="flex items-center justify-between mt-2">
+            {/* Left Controls */}
+            <div className="flex items-center gap-4">
+              <button onClick={togglePlay} className="text-white hover:text-electric-blue transition-colors outline-none cursor-pointer">
+                <span className="material-symbols-outlined text-3xl leading-none">
+                  {isPlaying ? 'pause' : 'play_arrow'}
+                </span>
+              </button>
+              <span className="text-white font-body-md text-sm cursor-default">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </span>
+            </div>
+
+            {/* Right Controls */}
+            <div className="flex items-center gap-4">
+              <button onClick={toggleMute} className="text-white hover:text-electric-blue transition-colors outline-none cursor-pointer">
+                <span className="material-symbols-outlined text-2xl leading-none">
+                  {isMuted ? 'volume_off' : 'volume_up'}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function VideoCard({ project, idx, onClick }: { project: any, idx: number, onClick: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef<any>(null);
+  const layoutId = `video-${idx}`;
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -80,7 +215,7 @@ function VideoCard({ project, idx }: { project: any, idx: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: idx * 0.1 }}
-      className="group bg-background-elevated border border-white/10 rounded-xl overflow-hidden relative"
+      className="group bg-background-elevated border border-white/10 rounded-xl overflow-hidden relative cursor-pointer"
       style={{ 
         transition: 'transform 400ms ease-in-out, box-shadow 400ms ease-in-out', 
         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
@@ -88,25 +223,26 @@ function VideoCard({ project, idx }: { project: any, idx: number }) {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
     >
-      <div className="aspect-[16/10] relative overflow-hidden bg-white/5">
+      <motion.div layoutId={layoutId} className="aspect-[16/10] relative overflow-hidden bg-white/5" style={{ borderRadius: '12px 12px 0 0' }}>
         <video 
           ref={videoRef}
           src={project.video}
           muted
           playsInline
           loop={false}
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           preload="metadata"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         
-        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
            <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur flex items-center justify-center">
              <span className="material-symbols-outlined text-white text-2xl">play_arrow</span>
            </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="p-6 relative z-10">
         <span 
@@ -128,11 +264,13 @@ function VideoCard({ project, idx }: { project: any, idx: number }) {
 
 export function Results() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [activeVideoProject, setActiveVideoProject] = useState<number | null>(null);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setActiveProject(null);
+        setActiveVideoProject(null);
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -253,11 +391,17 @@ export function Results() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {videoProjects.map((project, idx) => (
-             <VideoCard key={idx} project={project} idx={idx} />
+             <VideoCard 
+               key={idx} 
+               project={project} 
+               idx={idx} 
+               onClick={() => setActiveVideoProject(idx)}
+             />
           ))}
         </div>
       </section>
 
+      {/* PDF Case Study Modal */}
       <AnimatePresence mode="wait">
         {activeProject !== null && (
           <motion.div
@@ -324,6 +468,26 @@ export function Results() {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Video Lightbox Modal */}
+      <AnimatePresence>
+        {activeVideoProject !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveVideoProject(null)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
+            style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)' }}
+          >
+            <CustomVideoPlayer 
+              project={videoProjects[activeVideoProject]} 
+              layoutId={`video-${activeVideoProject}`}
+              onClose={() => setActiveVideoProject(null)}
+            />
           </motion.div>
         )}
       </AnimatePresence>
